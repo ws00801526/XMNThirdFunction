@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'WeChat' do |wx|
-    wx.ios.weak_frameworks = 'SystemConfiguration'
+    wx.frameworks = 'SystemConfiguration','CoreTelephony'
     wx.ios.library = 'z','sqlite3.0','c++'
     wx.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+WeChat.h'
     wx.public_header_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+WeChat.h'
