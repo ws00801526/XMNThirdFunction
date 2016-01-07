@@ -24,7 +24,6 @@ NSString *const kXMNWeChatPlatform  = @"wx";
 @property (nonatomic, copy)   XMNShareCompletionBlock shareCompletionBlock;
 @property (nonatomic, copy)   XMNAuthCompletionBlock  authCompletionBlock;
 
-
 + (instancetype)shareManager;
 
 @end

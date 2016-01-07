@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.default_subspec = 'Core','WeChat','Weibo','QQ'
 
   s.subspec 'Core' do |core|
-    core.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction.{h,m}','XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Supports.{h,m}'
+    core.source_files = "XMNThirdExample/XMNThirdInteraction/XMNThirdFunction.{h,m}","XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Supports.{h,m}"
     core.frameworks = 'SystemConfiguration','ImageIO','CoreTelephony','QuartzCore','Security'
   end
 
