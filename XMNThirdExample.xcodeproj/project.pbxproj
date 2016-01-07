@@ -44,7 +44,7 @@
 		97D0ADC91C3A6EC800B1925A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D0ADC41C3A6EC800B1925A /* libWeChatSDK.a */; };
 		97D0ADCA1C3A6EC800B1925A /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 97D0ADC51C3A6EC800B1925A /* read_me.txt */; };
 		97D0ADCD1C3A6F3E00B1925A /* XMNThirdFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D0ADCC1C3A6F3E00B1925A /* XMNThirdFunction.m */; };
-		97D0ADD01C3A706E00B1925A /* XMNThridFunction+WeChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D0ADCF1C3A706E00B1925A /* XMNThridFunction+WeChat.m */; };
+		97D0ADD01C3A706E00B1925A /* XMNThirdFunction+WeChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D0ADCF1C3A706E00B1925A /* XMNThirdFunction+WeChat.m */; };
 		97D0ADD31C3A768400B1925A /* XMNThirdFunction+Supports.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D0ADD21C3A768400B1925A /* XMNThirdFunction+Supports.m */; };
 /* End PBXBuildFile section */
 
@@ -108,8 +108,8 @@
 		97D0ADC81C3A6EC800B1925A /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		97D0ADCB1C3A6F3E00B1925A /* XMNThirdFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNThirdFunction.h; sourceTree = "<group>"; };
 		97D0ADCC1C3A6F3E00B1925A /* XMNThirdFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNThirdFunction.m; sourceTree = "<group>"; };
-		97D0ADCE1C3A706E00B1925A /* XMNThridFunction+WeChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XMNThridFunction+WeChat.h"; sourceTree = "<group>"; };
-		97D0ADCF1C3A706E00B1925A /* XMNThridFunction+WeChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMNThridFunction+WeChat.m"; sourceTree = "<group>"; };
+		97D0ADCE1C3A706E00B1925A /* XMNThirdFunction+WeChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XMNThirdFunction+WeChat.h"; sourceTree = "<group>"; };
+		97D0ADCF1C3A706E00B1925A /* XMNThirdFunction+WeChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMNThirdFunction+WeChat.m"; sourceTree = "<group>"; };
 		97D0ADD11C3A768400B1925A /* XMNThirdFunction+Supports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XMNThirdFunction+Supports.h"; sourceTree = "<group>"; };
 		97D0ADD21C3A768400B1925A /* XMNThirdFunction+Supports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMNThirdFunction+Supports.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -236,8 +236,8 @@
 				97D0ADCC1C3A6F3E00B1925A /* XMNThirdFunction.m */,
 				97D0ADD11C3A768400B1925A /* XMNThirdFunction+Supports.h */,
 				97D0ADD21C3A768400B1925A /* XMNThirdFunction+Supports.m */,
-				97D0ADCE1C3A706E00B1925A /* XMNThridFunction+WeChat.h */,
-				97D0ADCF1C3A706E00B1925A /* XMNThridFunction+WeChat.m */,
+				97D0ADCE1C3A706E00B1925A /* XMNThirdFunction+WeChat.h */,
+				97D0ADCF1C3A706E00B1925A /* XMNThirdFunction+WeChat.m */,
 				9740E0311C3BAC8F00B52E52 /* XMNThirdFunction+Weibo.h */,
 				9740E0321C3BAC8F00B52E52 /* XMNThirdFunction+Weibo.m */,
 				9736E54E1C3CE03600EF9B06 /* XMNThirdFunction+QQ.h */,
@@ -360,7 +360,7 @@
 				97D0ADD31C3A768400B1925A /* XMNThirdFunction+Supports.m in Sources */,
 				9736E5501C3CE03600EF9B06 /* XMNThirdFunction+QQ.m in Sources */,
 				9740E0331C3BAC8F00B52E52 /* XMNThirdFunction+Weibo.m in Sources */,
-				97D0ADD01C3A706E00B1925A /* XMNThridFunction+WeChat.m in Sources */,
+				97D0ADD01C3A706E00B1925A /* XMNThirdFunction+WeChat.m in Sources */,
 				97D0ADCD1C3A6F3E00B1925A /* XMNThirdFunction.m in Sources */,
 				97AA2A581C3BC5250074C23E /* UIControl+Blocks.m in Sources */,
 				97D0ADA61C3A6DC300B1925A /* AppDelegate.m in Sources */,

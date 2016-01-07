@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "XMNThridFunction+WeChat.h"
+#import "XMNThirdFunction+WeChat.h"
 #import "XMNThirdFunction+Weibo.h"
 #import "XMNThirdFunction+QQ.h"
 

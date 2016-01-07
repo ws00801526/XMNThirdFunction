@@ -6,7 +6,7 @@
 //  Copyright © 2016年 XMFraker. All rights reserved.
 //
 
-#import "XMNThridFunction+WeChat.h"
+#import "XMNThirdFunction+WeChat.h"
 #import "XMNThirdFunction+Supports.h"
 
 #import "WXApi.h"

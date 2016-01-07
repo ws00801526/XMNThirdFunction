@@ -11,7 +11,7 @@
 #import "WXApi.h"
 #import "XMNTestDefines.h"
 
-#import "XMNThridFunction+WeChat.h"
+#import "XMNThirdFunction+WeChat.h"
 #import "XMNThirdFunction+Weibo.h"
 #import "XMNThirdFunction+QQ.h"
 #import "UIControl+Blocks.h"
