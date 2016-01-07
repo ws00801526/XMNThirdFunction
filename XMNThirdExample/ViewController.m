@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 
-#import "WXApi.h"
 #import "XMNTestDefines.h"
 
 #import "XMNThirdFunction+WeChat.h"

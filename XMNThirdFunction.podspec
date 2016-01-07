@@ -9,28 +9,25 @@ Pod::Spec.new do |s|
   s.homepage     = 'https://github.com/ws00801526'
   s.license      = 'MIT'
   s.author       = { 'XMFraker' => '3057600441@qq.com' }
-  s.platform     = :ios, '7.0.0'
   s.source       = { :git => 'https://github.com/ws00801526/XMNThirdFunction.git', :tag => s.version }
   s.requires_arc = true
-  s.default_subspec = 'Core'
+  s.default_subspec = 'Core','WeChat','Weibo','QQ'
 
   s.subspec 'Core' do |core|
-    core.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction.h','XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Supports.h'
-    core.public_header_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction.h','XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Supports.h'
+    core.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction.{h,m}','XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Supports.{h,m}'
+    core.ios.frameworks = 'SystemConfiguration','ImageIO','CoreTelephony','QuartzCore'
   end
 
   s.subspec 'WeChat' do |wx|
-    wx.frameworks = 'SystemConfiguration','CoreTelephony'
     wx.ios.library = 'z','sqlite3.0','c++'
-    wx.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+WeChat.h'
+    wx.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+WeChat.{h,m}'
     wx.public_header_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+WeChat.h'
     wx.vendored_libraries = 'XMNThirdExample/XMNThirdInteraction/APPSDK/WeChat/*.a'
     wx.dependency 'XMNThirdFunction/Core'
   end
 
   s.subspec 'Weibo' do |wb|
-    wb.frameworks = 'SystemConfiguration','ImageIO','CoreTelephony','QuartzCore'
-    wb.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Weibo.h'
+    wb.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Weibo.{h,m}'
     wb.public_header_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Weibo.h'
     wb.vendored_libraries = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.a'
     wb.dependency 'XMNThirdFunction/Core'
@@ -39,8 +36,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'QQ' do |qq|
-    qq.frameworks = 'SystemConfiguration','ImageIO','CoreTelephony','QuartzCore'
-    qq.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+QQ.h'
+    qq.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+QQ.{h,m}'
     qq.public_header_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+QQ.h'
     qq.ios.vendored_frameworks = 'XMNThirdExample/XMNThirdInteraction/APPSDK/QQ/TencentOpenAPI.framework'
     qq.dependency 'XMNThirdFunction/Core'
