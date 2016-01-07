@@ -259,7 +259,7 @@ NSString *const kXMNWeiboPlatform  = @"wb";
             break;
         }
         default:
-            NSLog(@"微博分享不支持 :%ld 类型",shareContent.contentType);
+            NSLog(@"微博分享不支持 :%lu 类型",(unsigned long)shareContent.contentType);
             break;
     }
     
