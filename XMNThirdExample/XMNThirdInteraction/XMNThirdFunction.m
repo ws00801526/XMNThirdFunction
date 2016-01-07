@@ -7,6 +7,14 @@
 //
 
 #import "XMNThirdFunction.h"
+#import <libkern/OSAtomic.h>
+
+static CFMutableDictionaryRef objectCache;
+static dispatch_once_t objectCacheOnceToken;
+static OSSpinLock lock;
+
+static NSString *kXMNAuthInfoCahcePath;
+static dispatch_once_t authInfoOnceToken;
 
 NSString *const kXMNThirdAPPIDKey = @"com.XMFraker.shareAPPIDKey";
 NSString *const kXMNThirdAPPSecretKey = @"com.XMFraker.shareAPPSecretKey";
@@ -17,8 +25,9 @@ NSString *const kXMNAuthTokenKey = @"com.XMFraker.authTokenKey";
 NSString *const kXMNAuthRefreshTokenKey = @"com.XMFraker.authRefreshTokenKey";
 NSString *const kXMNAuthUserIDKey = @"com.XMFraker.authUserIDKey";
 
-static NSString *kXMNAuthInfoCahcePath;
-static dispatch_once_t onceToken;
+NSString *const kXMNErrorMessageKey = @"com.XMFraker.errorMessageKey";
+
+
 
 @implementation XMNShareContent
 
@@ -58,12 +67,35 @@ static dispatch_once_t onceToken;
 
 @end
 
+
+@implementation XMNBaseManager
+
++ (instancetype)sharedInstance {
+    dispatch_once(&objectCacheOnceToken, ^{
+        objectCache = CFDictionaryCreateMutable(CFAllocatorGetDefault(), 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        lock = OS_SPINLOCK_INIT;
+    });
+    OSSpinLockLock(&lock);
+    id object = CFDictionaryGetValue(objectCache, (__bridge const void *)(NSStringFromClass([self class])));
+    OSSpinLockUnlock(&lock);
+    if (!object) {
+        object = [[[self class] alloc] init];
+        OSSpinLockLock(&lock);
+        CFDictionarySetValue(objectCache, (__bridge const void *)(NSStringFromClass([self class])), (__bridge const void *)(object));
+        OSSpinLockUnlock(&lock);
+    }
+    return object;
+}
+
+@end
+
+
 @implementation XMNThirdFunction
 
 + (instancetype)shareFunction {
-    static dispatch_once_t onceToken;
+    static dispatch_once_t functionOnceToken;
     static id share;
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&functionOnceToken, ^{
         share = [[[self class] alloc] init];
     });
     return share;
@@ -107,7 +139,7 @@ static dispatch_once_t onceToken;
 
 
 + (NSDictionary *)authInfoForPlatform:(NSString *)platform {
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&authInfoOnceToken, ^{
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
         kXMNAuthInfoCahcePath = [[paths firstObject] stringByAppendingPathComponent:@"authInfo"];
         if (![  [NSFileManager defaultManager] fileExistsAtPath:kXMNAuthInfoCahcePath]) {
@@ -127,8 +159,7 @@ static dispatch_once_t onceToken;
 
 + (BOOL)saveAuthInfo:(NSDictionary *)authInfo forPlatform:(NSString *)platform {
     
-    
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&authInfoOnceToken, ^{
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
         kXMNAuthInfoCahcePath = [[paths firstObject] stringByAppendingPathComponent:@"authInfo"];
         if (![  [NSFileManager defaultManager] fileExistsAtPath:kXMNAuthInfoCahcePath]) {

@@ -39,9 +39,6 @@ typedef NS_ENUM(NSUInteger, XMNShareQQType) {
  */
 + (BOOL)isQQInstalled;
 
-//+ (BOOL)hasQQAuthorized;
-//
-//+ (void)cancelQQAuthorize;
 
 /**
  *  分享到QQ

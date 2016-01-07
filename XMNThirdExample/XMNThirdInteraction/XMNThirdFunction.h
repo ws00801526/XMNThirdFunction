@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+/** 用来记录第三方的APPIDkey */
 FOUNDATION_EXPORT NSString *const kXMNThirdAPPIDKey;
+/** 用来记录第三方的APPSecretKey */
 FOUNDATION_EXPORT NSString *const kXMNThirdAPPSecretKey;
+/** 用来记录第三方回调地址,回调URLScheme的key */
 FOUNDATION_EXPORT NSString *const kXMNThirdCallbackKey;
 
 
@@ -22,11 +25,14 @@ FOUNDATION_EXPORT NSString *const kXMNAuthTokenKey;
 FOUNDATION_EXPORT NSString *const kXMNAuthRefreshTokenKey;
 /** 保存授权用户id的key */
 FOUNDATION_EXPORT NSString *const kXMNAuthUserIDKey;
+/** 用户操作失败后,记录在error.userinfo的errorMessagekey,可以通过error.userinfo[kXMNErrorMessageKey] 获取具体失败信息 */
+FOUNDATION_EXPORT NSString *const kXMNErrorMessageKey;
 
 
 FOUNDATION_EXPORT NSString *const kXMNWeChatPlatform;
 FOUNDATION_EXPORT NSString *const kXMNWeiboPlatform;
 FOUNDATION_EXPORT NSString *const kXMNQQPlatform;
+FOUNDATION_EXPORT NSString *const kXMNALIPlatform;
 
 
 /** 分享内容的类型 */
@@ -52,15 +58,20 @@ typedef NS_ENUM(NSUInteger, XMNShareContentType) {
 };
 
 
+/** 用户操作完成的回调block,分享,支付,授权结束后的回调 , 分享成功后responseObject是shareContent */
+typedef void(^XMNCompletionBlock)(id responseObject,NSError *error);
+
+
 
 @interface XMNShareContent : NSObject
 
+/** 分享的标题 */
 @property (nonatomic, copy)   NSString *title;
+/** 分享的描述,分享纯文本时使用次字段 */
 @property (nonatomic, copy)   NSString *desc;
 
 /** 分享的链接地址,当分享微博Video时不能为空 */
 @property (nonatomic, copy)   NSString *link;
-
 
 /** 分享的图片 */
 @property (nonatomic, strong) UIImage  *image;
@@ -78,8 +89,6 @@ typedef NS_ENUM(NSUInteger, XMNShareContentType) {
 
 /** QQ分享到收藏的时候可以分享多张图片 */
 @property (nonatomic, copy)   NSArray *images;
-
-
 
 /// ========================================
 /// @name   微博特需的分享参数
@@ -106,10 +115,16 @@ typedef NS_ENUM(NSUInteger, XMNShareContentType) {
 - (BOOL)emptyValuesForKeys:(NSArray *)emptyKeys notEmptyValuesForKeys:(NSArray *)notEmptyKeys;
 @end
 
+@interface XMNBaseManager : NSObject
 
-typedef void(^XMNShareCompletionBlock)(XMNShareContent *shareContent,NSError *error);
-typedef void(^XMNAuthCompletionBlock)(id responseObject,NSError *error);
+@property (nonatomic, strong) XMNShareContent *shareContent;
+@property (nonatomic, copy)   XMNCompletionBlock  authCompletionBlock;
+@property (nonatomic, copy)   XMNCompletionBlock  shareCompletionBlock;
+@property (nonatomic, copy)   XMNCompletionBlock  payCompletionBlock;
 
++ (instancetype)sharedInstance;
+
+@end
 
 @interface XMNThirdFunction : NSObject
 

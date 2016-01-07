@@ -16,7 +16,7 @@
 #import "UIControl+Blocks.h"
 
 
-@interface ViewController () <UIScrollViewDelegate,WXApiDelegate>
+@interface ViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak)   UISegmentedControl *segmentControl;
@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view, typically from a nib.
     
     self.weChatScene = XMNShareWechatTypeSession;
@@ -150,9 +151,14 @@
             }];
         }else {
             [XMNThirdFunction authQQWithCompletionBlock:^(id responseObject, NSError *error) {
-                [XMNThirdFunction requestQQUserInfoWithCompletionBlock:^(id responseObject, NSError *error) {
+                if (!error) {
+                    [XMNThirdFunction requestQQUserInfoWithCompletionBlock:^(id responseObject, NSError *error) {
+                        [self _handleAuthAlert:responseObject error:error];
+                    }];
+                }else {
                     [self _handleAuthAlert:responseObject error:error];
-                }];
+                }
+                
             }];
         }
     }else if (button.tag == XMNShareContentTypeFile + 2){

@@ -14,27 +14,12 @@
 
 NSString *const kXMNWeiboPlatform  = @"wb";
 
-@interface XMNWeiboManager : NSObject <WeiboSDKDelegate>
-
-@property (nonatomic, strong) XMNShareContent *shareContent;
-@property (nonatomic, copy)   XMNShareCompletionBlock shareCompletionBlock;
-@property (nonatomic, copy)   XMNAuthCompletionBlock  authCompletionBlock;
-
-
-+ (instancetype)shareManager;
+@interface XMNWeiboManager : XMNBaseManager <WeiboSDKDelegate>
 
 @end
 
 @implementation XMNWeiboManager
 
-+ (instancetype)shareManager {
-    static dispatch_once_t onceToken;
-    static id manager;
-    dispatch_once(&onceToken, ^{
-        manager = [[[self class] alloc] init];
-    });
-    return manager;
-}
 
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
     NSLog(@"receive weibo request :%@",request);
@@ -53,7 +38,7 @@ NSString *const kXMNWeiboPlatform  = @"wb";
             authInfo[kXMNAuthUserIDKey] = userID;
             [XMNThirdFunction saveAuthInfo:authInfo forPlatform:kXMNWeiboPlatform];
         }
-        NSError *error = response.statusCode != WeiboSDKResponseStatusCodeSuccess ? [NSError errorWithDomain:kXMNWeiboPlatform code:response.statusCode userInfo:@{@"errorMsg":[self _responseErrorMsgForStatusCode:response.statusCode]}] : nil;
+        NSError *error = response.statusCode != WeiboSDKResponseStatusCodeSuccess ? [NSError errorWithDomain:kXMNWeiboPlatform code:response.statusCode userInfo:@{kXMNErrorMessageKey:[self _responseErrorMsgForStatusCode:response.statusCode]}] : nil;
         self.shareCompletionBlock ? self.shareCompletionBlock(self.shareContent, error) : nil;
     } else if ([response isKindOfClass:WBAuthorizeResponse.class]) {
         
@@ -64,7 +49,7 @@ NSString *const kXMNWeiboPlatform  = @"wb";
         authInfo[kXMNAuthUserIDKey] = userID;
         authInfo[kXMNAuthRefreshTokenKey] = refresh_token;
         [XMNThirdFunction saveAuthInfo:authInfo forPlatform:kXMNWeiboPlatform];
-        NSError *error = response.statusCode != WeiboSDKResponseStatusCodeSuccess ? [NSError errorWithDomain:kXMNWeiboPlatform code:response.statusCode userInfo:@{@"errorMsg":[self _responseErrorMsgForStatusCode:response.statusCode]}] : nil;
+        NSError *error = response.statusCode != WeiboSDKResponseStatusCodeSuccess ? [NSError errorWithDomain:kXMNWeiboPlatform code:response.statusCode userInfo:@{kXMNErrorMessageKey:[self _responseErrorMsgForStatusCode:response.statusCode]}] : nil;
         self.authCompletionBlock ? self.authCompletionBlock(authInfo, error) : nil;
     }
 }
@@ -140,13 +125,13 @@ NSString *const kXMNWeiboPlatform  = @"wb";
         return;
     }
     if ((shareContent.contentType == XMNShareContentTypeAudio ||shareContent.contentType == XMNShareContentTypeNews ||shareContent.contentType == XMNShareContentTypeVideo) && ![self isWeiboInstalled]) {
-        completionBlock ? completionBlock(shareContent, [NSError errorWithDomain:kXMNWeiboPlatform code:-1 userInfo:@{@"errormsg":@"未安装微博客户端,无法分享当前内容"}]) : nil;
+        completionBlock ? completionBlock(shareContent, [NSError errorWithDomain:kXMNWeiboPlatform code:-1 userInfo:@{kXMNErrorMessageKey:@"未安装微博客户端,无法分享当前内容"}]) : nil;
         return;
     }
     
-    [XMNWeiboManager shareManager].authCompletionBlock = authCompletionBlock;
-    [XMNWeiboManager shareManager].shareCompletionBlock = completionBlock;
-    [XMNWeiboManager shareManager].shareContent = shareContent;
+    [XMNWeiboManager sharedInstance].authCompletionBlock = authCompletionBlock;
+    [XMNWeiboManager sharedInstance].shareCompletionBlock = completionBlock;
+    [XMNWeiboManager sharedInstance].shareContent = shareContent;
     NSDictionary *platfromConfiguration = [self platformConfigurationForPlatform:kXMNWeiboPlatform];
     NSDictionary *authInfo = [self authInfoForPlatform:kXMNWeiboPlatform];
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
@@ -159,7 +144,7 @@ NSString *const kXMNWeiboPlatform  = @"wb";
 
 + (void)authWeiboWithCompletionBlock:(void(^)(id responseObject, NSError *error))completionBlock {
     if ([self canAuthWithPlatform:kXMNWeiboPlatform]) {
-        [XMNWeiboManager shareManager].authCompletionBlock = completionBlock;
+        [XMNWeiboManager sharedInstance].authCompletionBlock = completionBlock;
         NSDictionary *platfromConfiguration = [self platformConfigurationForPlatform:kXMNWeiboPlatform];
         WBAuthorizeRequest *request = [WBAuthorizeRequest request];
         request.redirectURI = platfromConfiguration[kXMNThirdCallbackKey];
@@ -177,7 +162,7 @@ NSString *const kXMNWeiboPlatform  = @"wb";
     NSString *errmsg = @"获取微博用户信息失败";
     NSMutableDictionary *authInfo = [NSMutableDictionary dictionaryWithDictionary:[self authInfoForPlatform:kXMNWeiboPlatform]];
     if (![self hasAuthorized:kXMNWeiboPlatform]) {
-        completionBlock ? completionBlock(nil,[NSError errorWithDomain:kXMNWeiboPlatform code:errcode userInfo:@{@"errorMsg":[errmsg stringByAppendingString:@",用户未登录"]}]) : nil;
+        completionBlock ? completionBlock(nil,[NSError errorWithDomain:kXMNWeiboPlatform code:errcode userInfo:@{kXMNErrorMessageKey:[errmsg stringByAppendingString:@",用户未登录"]}]) : nil;
         return;
     }
     //刷新下token
@@ -204,7 +189,7 @@ NSString *const kXMNWeiboPlatform  = @"wb";
 }
 
 + (BOOL)wb_handleOpenURL:(NSURL *)openURL {
-    return [WeiboSDK handleOpenURL:openURL delegate:[XMNWeiboManager shareManager]];
+    return [WeiboSDK handleOpenURL:openURL delegate:[XMNWeiboManager sharedInstance]];
 }
 
 + (WBMessageObject *)_generateWBMessage:(XMNShareContent *)shareContent {

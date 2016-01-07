@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A2A78ADFF646E2F99B644679E1CC82B7E3A770D1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A2A78ADFF646E2F99B644679E1CC82B7E3A770D1" : 0,
+    "7CC01725938122C45F5838DCA0AEC46B6DFA376E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "43443D07-F3AA-485B-B8B5-6EB87C3CA071",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A2A78ADFF646E2F99B644679E1CC82B7E3A770D1" : "XMNThirdExample\/",
+    "7CC01725938122C45F5838DCA0AEC46B6DFA376E" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "XMNThirdExample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "XMNThirdExample.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ws00801526\/XMNKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7CC01725938122C45F5838DCA0AEC46B6DFA376E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ws00801526\/XMNThirdFunction.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A2A78ADFF646E2F99B644679E1CC82B7E3A770D1"
+    }
+  ]
+}

@@ -16,52 +16,36 @@
 NSString *const kXMNQQPlatform = @"qq";
 
 
-@interface XMNQQManager : NSObject <TencentSessionDelegate,QQApiInterfaceDelegate>
+@interface XMNQQManager : XMNBaseManager <TencentSessionDelegate,QQApiInterfaceDelegate>
 
 @property (nonatomic, strong, readonly) TencentOAuth *tencentOAuth;
 
-@property (nonatomic, strong) XMNShareContent *shareContent;
-@property (nonatomic, copy)   XMNShareCompletionBlock shareCompletionBlock;
-@property (nonatomic, copy)   XMNAuthCompletionBlock  authCompletionBlock;
-
-+ (instancetype)shareManager;
 
 @end
 
 @implementation XMNQQManager
 
-+ (instancetype)shareManager {
-    static dispatch_once_t onceToken;
-    static id manager;
-    dispatch_once(&onceToken, ^{
-        manager = [[[self class] alloc] init];
-    });
-    return manager;
-}
-
 #pragma mark - TencentLoginDelegate
 
 - (void)tencentDidLogin {
-    //登录成功
     NSDictionary *authInfo = @{kXMNAuthTokenKey:self.tencentOAuth.accessToken,kXMNAuthUserIDKey:self.tencentOAuth.openId};
     [XMNThirdFunction saveAuthInfo:authInfo forPlatform:kXMNQQPlatform];
     self.authCompletionBlock ? self.authCompletionBlock(authInfo, nil) : nil;
 }
 
 - (void)tencentDidNotLogin:(BOOL)cancelled {
-    self.authCompletionBlock ? self.authCompletionBlock(nil, [NSError errorWithDomain:kXMNQQPlatform code:-1 userInfo:@{@"errorMsg":cancelled ? @"用户取消登录授权" : @"用户登录授权失败"}]) : nil;
-    
+    self.authCompletionBlock ? self.authCompletionBlock(nil, [NSError errorWithDomain:kXMNQQPlatform code:-1 userInfo:@{kXMNErrorMessageKey:cancelled ? @"用户取消登录授权" : @"用户登录授权失败"}]) : nil;
 }
 
 - (void)tencentDidNotNetWork {
-    self.authCompletionBlock ? self.authCompletionBlock(nil, [NSError errorWithDomain:kXMNQQPlatform code:-1 userInfo:@{@"errorMsg":@"用户登录授权失败"}]) : nil;
+    self.authCompletionBlock ? self.authCompletionBlock(nil, [NSError errorWithDomain:kXMNQQPlatform code:-1 userInfo:@{kXMNErrorMessageKey:@"用户登录授权失败"}]) : nil;
 }
 
 - (void)getUserInfoResponse:(APIResponse *)response {
     if (response.retCode == 0) {
         self.authCompletionBlock ? self.authCompletionBlock(response.jsonResponse, nil) : nil;
     }else {
-        self.authCompletionBlock ? self.authCompletionBlock(response.jsonResponse, [NSError errorWithDomain:kXMNQQPlatform code:response.retCode userInfo:@{@"errorMsg":response.errorMsg ? : @""}]) : nil;
+        self.authCompletionBlock ? self.authCompletionBlock(response.jsonResponse, [NSError errorWithDomain:kXMNQQPlatform code:response.retCode userInfo:@{kXMNErrorMessageKey:response.errorMsg ? : @""}]) : nil;
     }
 }
 /**
@@ -79,7 +63,7 @@ NSString *const kXMNQQPlatform = @"qq";
         if ([resp.result integerValue] == 0) {
             self.shareCompletionBlock ? self.shareCompletionBlock (self.shareContent , nil) : nil;
         }else {
-            self.shareCompletionBlock ? self.shareCompletionBlock (self.shareContent , [NSError errorWithDomain:kXMNQQPlatform code:[resp.result integerValue] userInfo:@{@"errorMsg":resp.errorDescription}]) : nil;
+            self.shareCompletionBlock ? self.shareCompletionBlock (self.shareContent , [NSError errorWithDomain:kXMNQQPlatform code:[resp.result integerValue] userInfo:@{kXMNErrorMessageKey:resp.errorDescription}]) : nil;
         }
     }
 }
@@ -107,7 +91,7 @@ NSString *const kXMNQQPlatform = @"qq";
  *  @param redirectURI app对应的回调地址
  */
 + (void)connectQQWithAppID:( NSString * _Nonnull)appID redirectURI:( NSString * _Nullable)redirectURI {
-    [[XMNQQManager shareManager] connectTencentWithAppID:appID redirectURI:redirectURI];
+    [[XMNQQManager sharedInstance] connectTencentWithAppID:appID redirectURI:redirectURI];
     [self setPlatformConfiguration:@{kXMNThirdAPPIDKey:appID,kXMNThirdCallbackKey:redirectURI ? : @"www.qq.com"} forPlatform:kXMNQQPlatform];
 }
 
@@ -130,8 +114,8 @@ NSString *const kXMNQQPlatform = @"qq";
  */
 + (void)shareToQQWithShareContent:(XMNShareContent *_Nonnull)shareContent type:(XMNShareQQType)type completionBlock:(void (^_Nonnull)(XMNShareContent *_Nonnull shareContent, NSError *_Nullable error))completionBlock {
     
-    [XMNQQManager shareManager].shareCompletionBlock = completionBlock;
-    [XMNQQManager shareManager].shareContent = shareContent;
+    [XMNQQManager sharedInstance].shareCompletionBlock = completionBlock;
+    [XMNQQManager sharedInstance].shareContent = shareContent;
     SendMessageToQQReq *baseReq = [self _gengeraeQQShareReqWithShareContent:shareContent];
     if (baseReq) {
         if (!([baseReq.message isKindOfClass:[QQApiTextObject class]] && [baseReq.message isKindOfClass:[QQApiImageObject class]])) {
@@ -153,18 +137,18 @@ NSString *const kXMNQQPlatform = @"qq";
  *  @param completionBlock 登录完成回调
  */
 + (void)authQQWithCompletionBlock:(void(^)(id responseObject , NSError * error))completionBlock {
-    [XMNQQManager shareManager].authCompletionBlock = completionBlock;
-    [[XMNQQManager shareManager].tencentOAuth authorize:@[kOPEN_PERMISSION_GET_USER_INFO,kOPEN_PERMISSION_GET_SIMPLE_USER_INFO,kOPEN_PERMISSION_GET_INFO,kOPEN_PERMISSION_ADD_SHARE]];
+    [XMNQQManager sharedInstance].authCompletionBlock = completionBlock;
+    [[XMNQQManager sharedInstance].tencentOAuth authorize:@[kOPEN_PERMISSION_GET_USER_INFO,kOPEN_PERMISSION_GET_SIMPLE_USER_INFO,kOPEN_PERMISSION_GET_INFO,kOPEN_PERMISSION_ADD_SHARE]];
 }
 
 
 + (void)requestQQUserInfoWithCompletionBlock:(void(^)(id responseObject, NSError *error))completionBlock {
-    [XMNQQManager shareManager].authCompletionBlock = completionBlock;
-    [[XMNQQManager shareManager].tencentOAuth getUserInfo];
+    [XMNQQManager sharedInstance].authCompletionBlock = completionBlock;
+    [[XMNQQManager sharedInstance].tencentOAuth getUserInfo];
 }
 
 + (BOOL)qq_handleOpenURL:(NSURL *)openURL {
-    return [TencentOAuth HandleOpenURL:openURL] || [QQApiInterface handleOpenURL:openURL delegate:[XMNQQManager shareManager]]|| [TencentApiInterface handleOpenURL:openURL delegate:[XMNQQManager shareManager]];
+    return [TencentOAuth HandleOpenURL:openURL] || [QQApiInterface handleOpenURL:openURL delegate:[XMNQQManager sharedInstance]]|| [TencentApiInterface handleOpenURL:openURL delegate:[XMNQQManager sharedInstance]];
 }
 
 + (SendMessageToQQReq *)_gengeraeQQShareReqWithShareContent:(XMNShareContent *)shareContent {

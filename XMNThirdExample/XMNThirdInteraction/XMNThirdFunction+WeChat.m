@@ -18,13 +18,7 @@ NSString *const kXMNWeChatPlatform  = @"wx";
 /**
  *  处理微信发送消息,支付等回调
  */
-@interface XMNWxApiManager : NSObject <WXApiDelegate>
-
-@property (nonatomic, strong) XMNShareContent *shareContent;
-@property (nonatomic, copy)   XMNShareCompletionBlock shareCompletionBlock;
-@property (nonatomic, copy)   XMNAuthCompletionBlock  authCompletionBlock;
-
-+ (instancetype)shareManager;
+@interface XMNWxApiManager : XMNBaseManager <WXApiDelegate>
 
 @end
 
@@ -39,15 +33,6 @@ NSString *const kXMNWeChatPlatform  = @"wx";
 
 @implementation XMNWxApiManager
 
-+(instancetype)shareManager {
-    static dispatch_once_t onceToken;
-    static XMNWxApiManager *instance;
-    dispatch_once(&onceToken, ^{
-        instance = [[XMNWxApiManager alloc] init];
-    });
-    return instance;
-}
-
 #pragma mark - WXApiDelegate
 - (void)onResp:(BaseResp *)resp {
     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
@@ -56,9 +41,9 @@ NSString *const kXMNWeChatPlatform  = @"wx";
         if (messageResp.errCode == WXSuccess) {
             error = nil;
         }else if (messageResp.errCode == WXErrCodeUserCancel) {
-            error = [NSError errorWithDomain:kXMNWeChatPlatform code:messageResp.errCode userInfo:@{@"errorMsg":@"用户取消分享"}];
+            error = [NSError errorWithDomain:kXMNWeChatPlatform code:messageResp.errCode userInfo:@{kXMNErrorMessageKey:@"用户取消分享"}];
         }else {
-            error = [NSError errorWithDomain:kXMNWeChatPlatform code:messageResp.errCode userInfo:@{@"errorMsg":resp.errStr ? : @"分享失败"}];
+            error = [NSError errorWithDomain:kXMNWeChatPlatform code:messageResp.errCode userInfo:@{kXMNErrorMessageKey:resp.errStr ? : @"分享失败"}];
         }
         self.shareCompletionBlock ? self.shareCompletionBlock(self.shareContent, error) : nil;
         
@@ -72,9 +57,9 @@ NSString *const kXMNWeChatPlatform  = @"wx";
             }];
             return;
         }else if (resp.errCode == WXErrCodeUserCancel) {
-            error =  [NSError errorWithDomain:kXMNWeChatPlatform code:resp.errCode userInfo:@{@"errorMsg":@"用户取消授权"}];
+            error =  [NSError errorWithDomain:kXMNWeChatPlatform code:resp.errCode userInfo:@{kXMNErrorMessageKey:@"用户取消授权"}];
         }else{
-            error = [NSError errorWithDomain:kXMNWeChatPlatform code:resp.errCode userInfo:@{@"errorMsg":resp.errStr ? : @"微信登录失败"}];
+            error = [NSError errorWithDomain:kXMNWeChatPlatform code:resp.errCode userInfo:@{kXMNErrorMessageKey:resp.errStr ? : @"微信登录失败"}];
         }
         self.authCompletionBlock ? self.authCompletionBlock (nil, error) : nil;
     }else if ([resp isKindOfClass:[PayResp class]]) {
@@ -111,10 +96,11 @@ NSString *const kXMNWeChatPlatform  = @"wx";
  */
 + (void)shareToWeChatWithShareContent:(XMNShareContent *)shareContent type:(XMNShareWechatType)type completionBlock:(void(^)(XMNShareContent *shareContent,NSError *error))completionBlock {
     if ([self canShareWithPlatform:kXMNWeChatPlatform]) {
-        [[XMNWxApiManager shareManager] setShareCompletionBlock:completionBlock];
-        [[XMNWxApiManager shareManager] setShareContent:shareContent];
+        [[XMNWxApiManager sharedInstance] setShareCompletionBlock:completionBlock];
+        [[XMNWxApiManager sharedInstance] setShareContent:shareContent];
         SendMessageToWXReq *messageReq = [self _generateWeChatShareURLWithShareContent:shareContent shareType:type];
         //        messageReq.openID = [self _weChatPlatformConfigration][kXMNThirdAPPIDKey];
+        
         [WXApi sendReq:messageReq];
     }
 }
@@ -128,7 +114,7 @@ NSString *const kXMNWeChatPlatform  = @"wx";
  */
 + (void)authWeChatInController:(UIViewController *)viewController withDelegate:(id<WXApiDelegate>)delegate completionBlock:(void(^)(NSDictionary *responseObject, NSError *error))completionBlock {
     if ([self canAuthWithPlatform:kXMNWeChatPlatform]) {
-        [XMNWxApiManager shareManager].authCompletionBlock = completionBlock;
+        [XMNWxApiManager sharedInstance].authCompletionBlock = completionBlock;
         SendAuthReq *authReq = [self _generateWeChatAuthReq];
         //        authReq.openID =  [self _weChatPlatformConfigration][kXMNThirdAPPIDKey];
         [WXApi sendAuthReq:authReq viewController:viewController delegate:delegate];
@@ -145,13 +131,13 @@ NSString *const kXMNWeChatPlatform  = @"wx";
             completionBlock(responseObject,error);
         }];
     } else {
-        completionBlock(nil,[NSError errorWithDomain:kXMNWeChatPlatform code:-1 userInfo:@{@"errorMsg":@"用户还未登录微信"}]);
+        completionBlock(nil,[NSError errorWithDomain:kXMNWeChatPlatform code:-1 userInfo:@{kXMNErrorMessageKey:@"用户还未登录微信"}]);
     }
 }
 
 
 + (BOOL)wx_handleOpenURL:(NSURL *)openURL {
-    return [WXApi handleOpenURL:openURL delegate:[XMNWxApiManager shareManager]];
+    return [WXApi handleOpenURL:openURL delegate:[XMNWxApiManager sharedInstance]];
 }
 
 
@@ -304,7 +290,7 @@ NSString *const kXMNWeChatPlatform  = @"wx";
         if (dict[@"errcode"]) {
             errcode = [dict[@"errcode"] integerValue];
             errmsg = dict[@"errmsg"];
-            NSError *error = [NSError errorWithDomain:kXMNWeChatPlatform code:errcode userInfo:@{@"errorMsg":errmsg}];
+            NSError *error = [NSError errorWithDomain:kXMNWeChatPlatform code:errcode userInfo:@{kXMNErrorMessageKey:errmsg}];
             [self saveAuthInfo:nil forPlatform:kXMNWeChatPlatform];
             completionHandler(nil,error);
         }else {
@@ -335,7 +321,7 @@ NSString *const kXMNWeChatPlatform  = @"wx";
         if (dict[@"errcode"]) {
             errcode = [dict[@"errcode"] integerValue];
             errmsg = dict[@"errmsg"];
-            NSError *error = [NSError errorWithDomain:kXMNWeChatPlatform code:errcode userInfo:@{@"errorMsg":errmsg}];
+            NSError *error = [NSError errorWithDomain:kXMNWeChatPlatform code:errcode userInfo:@{kXMNErrorMessageKey:errmsg}];
             [self saveAuthInfo:nil forPlatform:kXMNWeChatPlatform];
             completionHandler(nil,error);
         }else {
@@ -368,7 +354,7 @@ NSString *const kXMNWeChatPlatform  = @"wx";
                 if (dict[@"errcode"]) {
                     errcode = [dict[@"errcode"] integerValue];
                     errmsg = dict[@"errmsg"];
-                    NSError *error = [NSError errorWithDomain:kXMNWeChatPlatform code:errcode userInfo:@{@"errorMsg":errmsg}];
+                    NSError *error = [NSError errorWithDomain:kXMNWeChatPlatform code:errcode userInfo:@{kXMNErrorMessageKey:errmsg}];
                     completionHandler(nil,error);
                 }else {
                     completionHandler(dict,nil);

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		971B54951C3E4BD300396BEE /* XMNThirdFunction+Ali.m in Sources */ = {isa = PBXBuildFile; fileRef = 971B54941C3E4BD300396BEE /* XMNThirdFunction+Ali.m */; };
+		971B549B1C3E4C2700396BEE /* libAPOpenSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 971B54991C3E4C2700396BEE /* libAPOpenSdk.a */; };
+		971B549C1C3E4C2700396BEE /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 971B549A1C3E4C2700396BEE /* README.md */; };
 		9736E4E11C3CAA1600EF9B06 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9736E4E01C3CAA1600EF9B06 /* ImageIO.framework */; };
 		9736E54C1C3CE02000EF9B06 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9736E54A1C3CE02000EF9B06 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		9736E54D1C3CE02000EF9B06 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9736E54B1C3CE02000EF9B06 /* TencentOpenAPI.framework */; };
@@ -49,6 +52,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		971B54931C3E4BD300396BEE /* XMNThirdFunction+Ali.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XMNThirdFunction+Ali.h"; sourceTree = "<group>"; };
+		971B54941C3E4BD300396BEE /* XMNThirdFunction+Ali.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMNThirdFunction+Ali.m"; sourceTree = "<group>"; };
+		971B54971C3E4C2700396BEE /* APOpenAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPI.h; sourceTree = "<group>"; };
+		971B54981C3E4C2700396BEE /* APOpenAPIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPIObject.h; sourceTree = "<group>"; };
+		971B54991C3E4C2700396BEE /* libAPOpenSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPOpenSdk.a; sourceTree = "<group>"; };
+		971B549A1C3E4C2700396BEE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9736E4E01C3CAA1600EF9B06 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		9736E54A1C3CE02000EF9B06 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		9736E54B1C3CE02000EF9B06 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
@@ -125,6 +134,7 @@
 				9740E0011C3B615300B52E52 /* CoreTelephony.framework in Frameworks */,
 				9740E02F1C3BAC7300B52E52 /* libWeiboSDK.a in Frameworks */,
 				9736E54D1C3CE02000EF9B06 /* TencentOpenAPI.framework in Frameworks */,
+				971B549B1C3E4C2700396BEE /* libAPOpenSdk.a in Frameworks */,
 				9740DFFF1C3B614E00B52E52 /* Security.framework in Frameworks */,
 				9740DFFD1C3B614500B52E52 /* libz.tbd in Frameworks */,
 				9740DFFB1C3B613D00B52E52 /* libsqlite3.0.tbd in Frameworks */,
@@ -135,6 +145,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		971B54961C3E4BDE00396BEE /* Ali */ = {
+			isa = PBXGroup;
+			children = (
+				971B54971C3E4C2700396BEE /* APOpenAPI.h */,
+				971B54981C3E4C2700396BEE /* APOpenAPIObject.h */,
+				971B54991C3E4C2700396BEE /* libAPOpenSdk.a */,
+				971B549A1C3E4C2700396BEE /* README.md */,
+			);
+			path = Ali;
+			sourceTree = "<group>";
+		};
 		9736E5491C3CE00A00EF9B06 /* QQ */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +263,8 @@
 				9740E0321C3BAC8F00B52E52 /* XMNThirdFunction+Weibo.m */,
 				9736E54E1C3CE03600EF9B06 /* XMNThirdFunction+QQ.h */,
 				9736E54F1C3CE03600EF9B06 /* XMNThirdFunction+QQ.m */,
+				971B54931C3E4BD300396BEE /* XMNThirdFunction+Ali.h */,
+				971B54941C3E4BD300396BEE /* XMNThirdFunction+Ali.m */,
 			);
 			path = XMNThirdInteraction;
 			sourceTree = "<group>";
@@ -249,6 +272,7 @@
 		97D0ADC21C3A6EC800B1925A /* APPSDK */ = {
 			isa = PBXGroup;
 			children = (
+				971B54961C3E4BDE00396BEE /* Ali */,
 				9736E5491C3CE00A00EF9B06 /* QQ */,
 				9740E0221C3BAC7300B52E52 /* WeiBo */,
 				97D0ADC31C3A6EC800B1925A /* WeChat */,
@@ -360,10 +384,12 @@
 				97D0ADD31C3A768400B1925A /* XMNThirdFunction+Supports.m in Sources */,
 				9736E5501C3CE03600EF9B06 /* XMNThirdFunction+QQ.m in Sources */,
 				9740E0331C3BAC8F00B52E52 /* XMNThirdFunction+Weibo.m in Sources */,
+				971B54951C3E4BD300396BEE /* XMNThirdFunction+Ali.m in Sources */,
 				97D0ADD01C3A706E00B1925A /* XMNThirdFunction+WeChat.m in Sources */,
 				97D0ADCD1C3A6F3E00B1925A /* XMNThirdFunction.m in Sources */,
 				97AA2A581C3BC5250074C23E /* UIControl+Blocks.m in Sources */,
 				97D0ADA61C3A6DC300B1925A /* AppDelegate.m in Sources */,
+				971B549C1C3E4C2700396BEE /* README.md in Sources */,
 				97D0ADA31C3A6DC300B1925A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,6 +514,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/WeChat",
 					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/WeiBo",
+					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/Ali",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.XMFraker.XMNThirdExample;
@@ -512,6 +539,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/WeChat",
 					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/WeiBo",
+					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/Ali",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.XMFraker.XMNThirdExample;
