@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.author       = { 'XMFraker' => '3057600441@qq.com' }
   s.platform     = :ios, '7.0.0'
-  s.source       = { :git => 'https://github.com/PingPlusPlus/pingpp-ios.git', :tag => s.version }
+  s.source       = { :git => 'https://github.com/ws00801526/XMNThirdFunction.git', :tag => s.version }
   s.requires_arc = true
   s.default_subspec = 'Core'
 
