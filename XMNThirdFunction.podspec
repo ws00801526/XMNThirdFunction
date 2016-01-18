@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'XMNThirdFunction'
-  s.version      = '1.0.4'
+  s.version      = '1.0.5'
   s.summary      = '封装第三方SDK 集成分享功能'
   s.description  = <<-DESC
                    移动分享集成,
@@ -13,7 +13,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.platform     = :ios, "8.0"
   s.default_subspec = 'Core','WeChat','Weibo','QQ'
-  s.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-all_load' }
 
   s.subspec 'Core' do |core|
     core.source_files = "XMNThirdExample/XMNThirdInteraction/XMNThirdFunction.{h,m}","XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Supports.{h,m}"
@@ -32,7 +31,7 @@ Pod::Spec.new do |s|
     wb.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Weibo.{h,m}','XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.h'
     wb.public_header_files = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.h','XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Weibo.h'
     wb.vendored_libraries = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/libWeiboSDK.a'
-    wb.frameworks   = 'ImageIO', 'SystemConfiguration', 'CoreText', 'QuartzCore', 'Security', 'UIKit', 'Foundation', 'CoreGraphics','CoreTelephony','AdSupport'
+    wb.frameworks   = 'ImageIO', 'SystemConfiguration', 'CoreText', 'QuartzCore', 'Security', 'UIKit', 'Foundation', 'CoreGraphics','CoreTelephony'
     wb.libraries = 'sqlite3','z'
     wb.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-all_load' }
     wb.dependency 'XMNThirdFunction/Core'
