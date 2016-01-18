@@ -9,7 +9,6 @@
 #import "XMNThirdFunction+Weibo.h"
 #import "XMNThirdFunction+Supports.h"
 
-#import "WeiboUser.h"
 #import "WeiboSDK.h"
 
 NSString *const kXMNWeiboPlatform  = @"wb";
