@@ -24,6 +24,8 @@
     [XMNThirdFunction connectWeChatWithAPPID:@"wxd930ea5d5a258f4f" appSecret:@"11"];
     [XMNThirdFunction connectWeiboWithAPPKey:@"3214931233" redirectURI:@"https://api.weibo.com/oauth2/default.html"];
     [XMNThirdFunction connectQQWithAppID:@"222222" redirectURI:nil];
+    
+//    XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/libWeiboSDK.a
     return YES;
 }
 
