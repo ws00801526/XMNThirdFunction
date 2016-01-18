@@ -516,10 +516,13 @@
 					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/WeiBo",
 					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/Ali",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-force_load",
+					XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/libWeiboSDK.a,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.XMFraker.XMNThirdExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 armv7";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -541,10 +544,13 @@
 					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/WeiBo",
 					"$(PROJECT_DIR)/XMNThirdExample/XMNThirdInteraction/APPSDK/Ali",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-force_load",
+					XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/libWeiboSDK.a,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.XMFraker.XMNThirdExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 armv7";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

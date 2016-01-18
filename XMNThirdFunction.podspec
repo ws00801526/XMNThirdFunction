@@ -31,9 +31,10 @@ Pod::Spec.new do |s|
     wb.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Weibo.{h,m}','XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.h'
     wb.public_header_files = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.h','XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Weibo.h'
     wb.vendored_libraries = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.a'
+    wb.frameworks = 'CoreText','CoreGraphics'
     wb.ios.libraries = 'sqlite3','z'
     wb.dependency 'XMNThirdFunction/Core'
-    wb.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }  
+    wb.xcconfig = { 'OTHER_LDFLAGS' => '--force_load XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/libWeiboSDK.a' }  
     wb.resource = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.bundle'
   end
 
