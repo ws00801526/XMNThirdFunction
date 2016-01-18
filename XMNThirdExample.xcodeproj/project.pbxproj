@@ -89,6 +89,15 @@
 		9740E0311C3BAC8F00B52E52 /* XMNThirdFunction+Weibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XMNThirdFunction+Weibo.h"; sourceTree = "<group>"; };
 		9740E0321C3BAC8F00B52E52 /* XMNThirdFunction+Weibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMNThirdFunction+Weibo.m"; sourceTree = "<group>"; };
 		9740E0371C3BC27300B52E52 /* XMNTestDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMNTestDefines.h; sourceTree = "<group>"; };
+		97459EAB1C4CB9C60049ED90 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
+		97459EAC1C4CB9C60049ED90 /* WBHttpRequest+WeiboGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboGame.h"; sourceTree = "<group>"; };
+		97459EAD1C4CB9C60049ED90 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
+		97459EAE1C4CB9C60049ED90 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
+		97459EAF1C4CB9C60049ED90 /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
+		97459EB01C4CB9C60049ED90 /* WBSDKBasicButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKBasicButton.h; sourceTree = "<group>"; };
+		97459EB11C4CB9C60049ED90 /* WBSDKCommentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKCommentButton.h; sourceTree = "<group>"; };
+		97459EB21C4CB9C60049ED90 /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKRelationshipButton.h; sourceTree = "<group>"; };
+		97459EB31C4CB9C60049ED90 /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
 		97AA2A561C3BC5250074C23E /* UIControl+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+Blocks.h"; sourceTree = "<group>"; };
 		97AA2A571C3BC5250074C23E /* UIControl+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+Blocks.m"; sourceTree = "<group>"; };
 		97D0AD9E1C3A6DC300B1925A /* XMNThirdExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMNThirdExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +168,15 @@
 		9740E0221C3BAC7300B52E52 /* WeiBo */ = {
 			isa = PBXGroup;
 			children = (
+				97459EAB1C4CB9C60049ED90 /* WBHttpRequest.h */,
+				97459EAC1C4CB9C60049ED90 /* WBHttpRequest+WeiboGame.h */,
+				97459EAD1C4CB9C60049ED90 /* WBHttpRequest+WeiboShare.h */,
+				97459EAE1C4CB9C60049ED90 /* WBHttpRequest+WeiboToken.h */,
+				97459EAF1C4CB9C60049ED90 /* WBHttpRequest+WeiboUser.h */,
+				97459EB01C4CB9C60049ED90 /* WBSDKBasicButton.h */,
+				97459EB11C4CB9C60049ED90 /* WBSDKCommentButton.h */,
+				97459EB21C4CB9C60049ED90 /* WBSDKRelationshipButton.h */,
+				97459EB31C4CB9C60049ED90 /* WeiboUser.h */,
 				9740E0231C3BAC7300B52E52 /* libWeiboSDK.a */,
 				9740E02C1C3BAC7300B52E52 /* WeiboSDK.bundle */,
 				9740E02D1C3BAC7300B52E52 /* WeiboSDK.h */,
