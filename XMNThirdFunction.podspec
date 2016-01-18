@@ -17,10 +17,12 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |core|
     core.source_files = "XMNThirdExample/XMNThirdInteraction/XMNThirdFunction.{h,m}","XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Supports.{h,m}"
     core.frameworks = 'SystemConfiguration','ImageIO','CoreTelephony','QuartzCore','Security'
+    core.libraies = 'sqlite3', 'z'
   end
 
   s.subspec 'WeChat' do |wx|
     wx.ios.libraries = 'z','sqlite3.0','c++'
+    wx.ios.libraries = 'c++'
     wx.public_header_files = 'XMNThirdExample/XMNThirdInteraction/APPSDK/WeChat/*.h','XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+WeChat.h'
     wx.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+WeChat.{h,m}','XMNThirdExample/XMNThirdInteraction/APPSDK/WeChat/*.h'
     wx.vendored_libraries = 'XMNThirdExample/XMNThirdInteraction/APPSDK/WeChat/*.a'
@@ -34,6 +36,9 @@ Pod::Spec.new do |s|
     wb.frameworks   = 'ImageIO', 'SystemConfiguration', 'CoreText', 'QuartzCore', 'Security', 'UIKit', 'Foundation', 'CoreGraphics','CoreTelephony'
     wb.libraries = 'sqlite3','z'
     wb.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-all_load' }
+=======
+    wb.frameworks   = 'CoreText', 'CoreGraphics' 
+>>>>>>> a293b3a5c65ad3661c50c8784c4d3d08e034ab5f
     wb.dependency 'XMNThirdFunction/Core'
     wb.resource = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.bundle'
   end
@@ -44,6 +49,7 @@ Pod::Spec.new do |s|
     qq.ios.vendored_frameworks = 'XMNThirdExample/XMNThirdInteraction/APPSDK/QQ/TencentOpenAPI.framework'
     qq.dependency 'XMNThirdFunction/Core'
     qq.ios.libraries = 'iconv','sqlite3','stdc++','z'
+    qq.ios.libraries = 'iconv','stdc++'
     qq.resource = 'XMNThirdExample/XMNThirdInteraction/APPSDK/QQ/*.bundle'
   end
 
