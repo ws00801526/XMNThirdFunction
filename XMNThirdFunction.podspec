@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'XMNThirdFunction'
-  s.version      = '1.0.0'
+  s.version      = '1.0.2'
   s.summary      = '封装第三方SDK 集成分享功能'
   s.description  = <<-DESC
                    移动分享集成,
@@ -31,10 +31,10 @@ Pod::Spec.new do |s|
     wb.source_files = 'XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Weibo.{h,m}','XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.h'
     wb.public_header_files = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.h','XMNThirdExample/XMNThirdInteraction/XMNThirdFunction+Weibo.h'
     wb.vendored_libraries = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.a'
-    wb.frameworks = 'CoreText','CoreGraphics'
-    wb.ios.libraries = 'sqlite3','z'
+    wb.frameworks   = 'ImageIO', 'SystemConfiguration', 'CoreText', 'QuartzCore', 'Security', 'UIKit', 'Foundation', 'CoreGraphics','CoreTelephony'
+    wb.libraries = 'sqlite3','z'
+    wb.xcconfig = { 'OTHER_LDFLAGS' => '-all_load' }
     wb.dependency 'XMNThirdFunction/Core'
-    wb.xcconfig = { 'OTHER_LDFLAGS' => '--force_load XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/libWeiboSDK.a' }  
     wb.resource = 'XMNThirdExample/XMNThirdInteraction/APPSDK/Weibo/*.bundle'
   end
 
